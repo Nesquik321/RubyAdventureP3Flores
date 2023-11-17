@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,9 +6,24 @@ using UnityEngine;
 
 public class RubyController : MonoBehaviour
 {
+    
+    public float speed = 3.0f;
+
+    public int maxHealth = 5;
+
+    public int health { get { return currentHealth; } }
+    
+    Rigidbody2D rigidbody2d;
+    float horizontal;
+    float vertical;
+    private int currentHealth;
+
     // Start is called before the first frame update
     void Start()
     {
+        rigidbody2d = GetComponent<Rigidbody2D>();
+        currentHealth = maxHealth;
+        currentHealth = 1;
         //QualitySettings.vSyncCount = 0;
         //Application.targetFrameRate = 10;
     }
@@ -17,10 +33,23 @@ public class RubyController : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-
-        Vector2 position = transform.position;
+        
+        Vector2 position = rigidbody2d.position;
         position.x = position.x + 3.0f * horizontal * Time.deltaTime;
         position.y = position.y + 3.0f * vertical * Time.deltaTime;
         transform.position = position;
+
     }
-}
+    void FixedUpdate()
+    {
+        Vector2 position = rigidbody2d.position;
+        position.x = position.x + 3.0f * horizontal * Time.deltaTime;
+        position.y = position.y + 3.0f * vertical * Time.deltaTime;
+        rigidbody2d.MovePosition(position);
+    }
+    void ChangeHealth(int amount)
+    {
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0 , maxHealth);
+        Debug.Log(currentHealth + "/" + maxHealth);
+    }
+}   
