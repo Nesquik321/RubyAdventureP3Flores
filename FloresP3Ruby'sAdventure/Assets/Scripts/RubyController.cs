@@ -46,6 +46,10 @@ public class RubyController : MonoBehaviour
                 isInvincible = false;
             }
         }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Launch();
+        }
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
 
@@ -96,5 +100,7 @@ public class RubyController : MonoBehaviour
 
         projectile projectile = projectileObject.GetComponent<projectile>();
         projectile.Launch(lookDirection, 300);
+
+        animator.SetTrigger("Launch");
     }
 }   
