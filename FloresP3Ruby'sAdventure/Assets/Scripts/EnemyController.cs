@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -28,6 +29,8 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!broken) 
+
         timer -= Time.deltaTime;
         if (timer < 0)
         {
